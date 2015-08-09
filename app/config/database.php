@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'daldb.vpsdime.com';
-$db['default']['username'] = 'red5r_red5log';
-$db['default']['password'] = '4rfv5tgb';
+$db['default']['hostname'] = '';
+$db['default']['username'] = '';
+$db['default']['password'] = '';
 $db['default']['database'] = 'red5r_logstash';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
