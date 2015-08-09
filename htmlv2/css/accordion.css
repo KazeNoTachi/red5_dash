@@ -1,0 +1,38 @@
+.accordion {
+margin:50px;
+}
+
+.accordion dt,.accordion dd {
+border:1px solid #000;
+border-bottom:0;
+padding:10px;
+}
+
+.accordion dt:last-of-type,.accordion dd:last-of-type {
+border-bottom:1px solid #000;
+}
+
+.accordion dt a,.accordion dd a {
+display:block;
+color:#000;
+font-weight:700;
+}
+
+.accordion dd {
+border-top:0;
+font-size:12px;
+}
+
+.accordion dd:last-of-type {
+border-top:1px solid #FFF;
+position:relative;
+top:-1px;
+}
+
+a {
+text-decoration:none;
+}
+
+body {
+font:16px Sans-Serif;
+}

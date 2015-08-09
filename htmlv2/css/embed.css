@@ -1,0 +1,65 @@
+#table_div{
+	width:100%;
+	margins:auto;
+}
+      body {
+      background-color: #fff;
+      font-family:      Lucida Grande, Verdana, Sans-serif;
+      font-size:        12px;
+      color:            #000;
+	overflow:hidden;
+      }
+
+      h1 {
+      font-weight:      normal;
+      font-size:        14px;
+      color:            #990000;
+	font-family: Lucida Grande,Verdana,Sans-serif;
+      }
+a {
+        color: #000;
+        text-decoration: none;
+      }
+a:hover {
+        color: #000;
+        text-decoration: none;
+      }
+a:active {
+        color: #000;
+        text-decoration: none;
+      }
+a:visited {
+        color: #000;
+        text-decoration: none;
+      }
+
+p {
+         line-height: 1.55;
+      }
+
+.title{
+        padding-bottom:10px;
+}
+
+.options{
+        display: none;
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid gray;
+        background-color: buttonface;
+}
+
+.toggle-button{
+}
+
+
+.option-btn{
+        float:right;
+        padding:0px;
+}
+
+button img{
+        width:25px;
+        height:25px;
+}
+

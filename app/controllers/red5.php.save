@@ -1,0 +1,185 @@
+<?
+class Red5 extends CI_Controller
+{
+                function __construct()
+                {
+                                parent::__construct();
+
+                                $this->load->library('ion_auth');
+                                $this->load->library('template');
+                                $this->load->model('logstash_model');
+                                $this->load->model('server_status_model');
+				$this->template->add_js('js/jquery.min.js','import');
+				$this->template->add_js('js/fancybox.js','import');
+
+				$this->template->add_css('css/default.css');
+				$this->template->add_css('css/style1.css');
+				$this->template->add_css('css/reset.css');
+ 				$this->template->add_css('css/fancybox.css');
+
+				$this->load->library('ServerStatus');
+                }
+
+                function display()
+                {
+                                $table="all_streams";
+                                $wherearray=$this->uri->uri_to_assoc(3);
+                                $dataurl="/red5/data/".$this->uri->assoc_to_uri($wherearray);
+                                if (!$this->ion_auth->logged_in())
+                                        {
+                                                redirect('auth/login');
+                                        } //!$this->ion_auth->logged_in()
+                                $data             = array();
+                                $data['dataurl']=$dataurl;
+                                $data['viewname'] = ucwords(str_replace('_', ' ',$this->uri->segment(3,0)));
+                                switch ($this->uri->segment(3,0)) {
+ 					case "all_clients":
+						$data['Filters']['control1']['column'] = "Count";
+						$data['Filters']['control1']['type'] = "NumberRangeFilter";
+						$data['Filters']['control1']['container'] = "control1";
+						$data['Filters']['control1']['jsobject'] = "slider";
+						$data['Filters']['control2']['column'] = "Last Seen";
+						$data['Filters']['control2']['type'] = "DateRangeFilter";
+						$data['Filters']['control2']['container'] = "control2";
+						$data['Filters']['control2']['jsobject'] = "DateFilter";
+                                                $data['Filters']['control3']['column'] = "City";
+                                                $data['Filters']['control3']['type'] = "StringFilter";
+                                                $data['Filters']['control3']['container'] = "control3";
+                                                $data['Filters']['control3']['jsobject'] = "cityFilter";
+						$data['Charts']['chart1']['jsobject'] = "table";
+						$data['Charts']['chart1']['container'] = "table";
+						$data['Charts']['chart1']['type'] = "Table";
+						$data['Binds']['bind1']['control']="DateFilter";
+						$data['Binds']['bind1']['controlled']="table";
+						$data['Binds']['bind3']['control']="cityFilter";
+						$data['Binds']['bind3']['controlled']="table";
+						$data['Binds']['bind2']['controlled']="DateFilter";
+						$data['Binds']['bind2']['control']="slider";
+						$data['Charts']['chart1']['options']= array();
+
+						break;
+ 					case "active_clients":
+						$data['Filters']['control1']['column'] = "IP";
+                                                $data['Filters']['control1']['type'] = "StringFilter";
+                                                $data['Filters']['control1']['container'] = "control1";
+                                                $data['Filters']['control1']['jsobject'] = "IPFilter";
+	        				$data['Charts']['chart1']['jsobject'] = "table";
+                                                $data['Charts']['chart1']['container'] = "table";
+                                                $data['Charts']['chart1']['type'] = "Table";
+						$data['Binds']['bind1']['control']="IPFilter";
+						$data['Binds']['bind1']['controlled']="table";
+						$data['Charts']['chart1']['options']= array();
+
+						break;
+    					case "all_sessions":
+						$data['Filters']['control1']['column'] = "IP";
+                                                $data['Filters']['control1']['type'] = "StringFilter";
+                                                $data['Filters']['control1']['container'] = "control1";
+                                                $data['Filters']['control1']['jsobject'] = "IPFilter";
+						$data['Charts']['chart1']['options']= array();
+	        				$data['Charts']['chart1']['jsobject'] = "table";
+                                                $data['Charts']['chart1']['container'] = "table";
+                                                $data['Charts']['chart1']['type'] = "Table";
+						$data['Binds']['bind1']['control']="IPFilter";
+						$data['Binds']['bind1']['controlled']="table";
+        					break;
+                                        case "all_streams":
+                                                $data['Filters']['control1']['column'] = "ID";
+                                                $data['Filters']['control1']['type'] = "StringFilter";
+                                                $data['Filters']['control1']['container'] = "control1";
+                                                $data['Filters']['control1']['jsobject'] = "IDFilter";
+                                                $data['Charts']['chart1']['jsobject'] = "table";
+                                                $data['Charts']['chart1']['container'] = "table";
+                                                $data['Charts']['chart1']['type'] = "Table";
+						$data['Charts']['chart1']['options']= array('width'=> '"100%"');
+						$data['Binds']['bind1']['control']="IDFilter";
+                                                $data['Binds']['bind1']['controlled']="table";
+                                                break;
+    					default:
+						$data['FilterColumn']="Count";
+					}
+				if (!$this->uri->segment(4,0)) 
+                                        {
+                                                $this->template->write_view('menu', 'modules/menu');
+                                                $this->template->write_view('content', 'content', $data);
+                                                $this->template->write_view('footer', 'footer.php');
+                                                $this->template->write_view('header', 'header.dash.php', $data);
+
+                                        }else{
+
+                                                $data['viewname'] = "<b>".$this->uri->segment(5,0)."</b> Details";
+                                                $this->template->set_template('embed');
+
+                                                $this->template->write_view('content', 'content', $data);
+                                                $this->template->write_view('footer', 'footer.php');
+                                                $this->template->write_view('header', 'header.dash.php', $data);
+                                        }        
+                                $this->template->render();
+                }
+
+
+                function index()
+                {
+                                if (!$this->ion_auth->logged_in())
+                                {
+                                                redirect('auth/login');
+                                } //!$this->ion_auth->logged_in()
+                                //$this->load->view('index');
+				$this->serverstatus->add('red5','red5.reachbig.com',1935);
+					$data['viewname']="RED5 Statistics Dashboard";
+				$ram=$this->server_status_model->getram();
+				$df=$this->server_status_model->getdf("/");
+				$load=$this->server_status_model->getload();
+				$cpu=$this->server_status_model->getcpu();
+                                $this->template->write_view('menu', 'modules/menu');
+                                $this->template->write_view('header', 'headerajax.php',$data);
+                                $this->template->write_view('content', 'content');
+                                $this->template->write_view('footer', 'footer.php');
+                                $this->template->write('content', $ram."<br>");
+                                $this->template->write('content', $df."<br>");
+                                $this->template->write('content', $cpu."<br>");
+                                $this->template->write('content', $load."<br>");
+
+				$this->serverstatus->check();
+
+				if($this->serverstatus->status('red5')){
+					$this->template->write('content','red5 Is up<img src="http://static3.depositphotos.com/1000618/120/i/450/dep_1208094-Online-button.jpg" width="50px"/ ><br>');
+				}else{
+					$this->template->write('content','<b>red5 Is DOWN</b><img src="http://static2.bigstockphoto.com/thumbs/2/9/3/large2/3922288.jpg" width="50px" /><br>');
+				}
+
+
+                                $this->template->render();
+                }
+
+//DATA FUNCTIONS BELOW
+
+                function data()
+                {
+			function array_clean_key( &$array )
+			{
+				$return=array();
+    				foreach ( $array as $k => $v )
+        				$return[urldecode($k)] = $v;
+    				return ( array ) $return;
+			}
+
+                        $table = $this->uri->segment(3, 0);
+			$wherearray = $this->uri->uri_to_assoc(4);
+			array_walk($wherearray, function(&$n){ $n=urldecode($n);});   
+			$wherearrayclean=array_clean_key($wherearray);
+			 if (!$this->ion_auth->logged_in())
+                                {
+                                                redirect('auth/login');
+                                } //!$this->ion_auth->logged_in()
+			$data             = array();
+			$data['output']   = $this->logstash_model->table2json($table,$wherearrayclean);
+			$this->load->view('data', $data);
+                }
+
+
+
+
+
+}
+?>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>jQuery Panel Slider Example</title>
+<style type="text/css">
+body {
+font-family: Arial;
+background: #eee;
+}
+h1, h2 {
+margin-top: 0;
+}
+p {
+color: #ccc;
+line-height: 1.5;
+}
+#page {
+width: 940px;
+height: 400px;
+padding: 20px;
+margin: 0 auto;
+background: white;
+}
+.panel {
+display: none;
+width: 220px;
+padding: 20px;
+background-color: #333;
+color: #fff;
+box-shadow: inset 0 0 5px 5px #222;
+}
+</style>
+</head>
+<body>
+<!-- Centered page -->
+<div id="page">
+<h1>jQuery Panel Slider Example</h1>
+<a id="left-panel-link" href="#left-panel">Open left panel</a> | <a id="right-panel-link" href="#right-panel">Open right panel</a>
+<hr />
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+</div>
+
+<!-- Left panel -->
+<div id="left-panel" class="panel">
+<h2>Left panel</h2>
+<p>Click anywhere outside panel to close it.</p>
+</div>
+
+<!-- Right panel -->
+<div id="right-panel" class="panel">
+<h2>Right panel</h2>
+<p>Clicking outside this panel wont close it because <code>clickClose = false</code></p>
+<button id="close-panel-bt">Close</button>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script src="jquery.panelslider.min.js"></script> 
+<script>
+    $('#left-panel-link').panelslider();
+    $('#right-panel-link').panelslider({side: 'right', clickClose: false, duration: 200 });
+
+    $('#close-panel-bt').click(function() {
+      $.panelslider.close();
+    });
+  </script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

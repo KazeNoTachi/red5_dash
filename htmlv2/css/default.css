@@ -1,0 +1,120 @@
+body {
+      	background-color: #fff;
+      	font-family:      Lucida Grande, Verdana, Sans-serif;
+      	font-size:        12px;
+      	color:            #000;
+	background:url(/images/overlay.png) repeat 0 0;
+	margin:		8px
+      }
+
+#content  {
+      	border:           #999 1px solid;
+      	background-color: #fff;
+      	padding:       20px 20px 12px 20px;
+	min-height:600px;
+	overflow:hidden;
+	margin:15px;
+      }
+
+#sidebar{
+      }
+
+.title{
+	padding-bottom:10px;
+}
+h1 {
+      	font-weight:      normal;
+      	font-size:        20px !important;
+      	color:            #990000;
+      	margin:        0 0 4px 0;
+      }
+
+a {
+       	color: #000;
+       	text-decoration: none;
+      }
+a:hover {
+       	color: #000;
+       	text-decoration: none;
+      }
+a:active {
+        color: #000;
+       	text-decoration: none;
+      }
+a:visited {
+        color: #000;
+       	text-decoration: none;
+      }
+
+p {
+      	line-height: 1.55;
+      }
+        
+#footer{
+        height:50px;
+        clear:both;
+        background:#333;
+        margin:auto;
+      }
+        
+#wrapper{
+        clear:both;
+        margin:auto;
+        background:grey;
+        overflow:hidden;
+        height:auto;
+	min-width:850px;
+	margin-left: 120px;
+	margin-right: 120px;
+     }
+
+
+#left50{
+	width:50%;
+	float:left;
+     }
+#right50{
+        width:50%;
+        float:right;
+     }
+.panel {
+      	display: none;
+      	width:250px;
+	margin-left: 0px;
+	background:url('/images/overlay.png') repeat scroll 0px 0px transparent;
+    }
+
+#left-panel-link{
+	position:absolute;
+	left:10px;
+	top:10px;
+    	background-image: url('/images/menu-toggle.png');
+    	width: 42px;
+    	height: 42px;
+}
+#left-panel-link:hover{
+        background-image: url('/images/menu-toggleH.png');
+}
+.options{
+	display: none;
+	margin-bottom: 10px; 
+	padding: 5px; 
+	border: 1px solid gray; 
+	background-color: buttonface;
+}
+#footer p{
+	padding: 15px;
+	text-align: center;
+}
+#toggle-button{
+}
+.option-btn{
+	float:right;
+	padding:0px;
+}
+  
+button img{
+        width:25px;
+        height:25px;
+}
+
